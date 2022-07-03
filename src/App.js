@@ -3,6 +3,8 @@ import './App.scss';
 import Nav from './views/Nav';
 import { useState, useRef, useEffect } from 'react';
 import Todo from './views/Todo';
+import Covid from './views/Covid';
+import { CountDownTimer, CountDownTimerHooks } from './views/CountDownTimer';
 
 function App() {
   let [name, setName] = useState('MP')
@@ -26,7 +28,7 @@ function App() {
   let inputFocus = useRef(null);
   useEffect(() => {
     inputFocus.current.focus();
-  }, [inputFocus])
+  }, [])
   const deleteTodo = (todoId) => {
     console.log('Todo_parents: ', todoId)
     let copyTodos = todos;
@@ -39,6 +41,9 @@ function App() {
       <header className="App-header">
 
         <img src={logo} className="App-logo" alt="logo" />
+        <CountDownTimer />
+        <p>-----</p>
+        <CountDownTimerHooks />
         <p>
           Welcome to react-Hooks,  {name}
         </p>
@@ -48,6 +53,7 @@ function App() {
           todos={todos}
           deleteTodo={deleteTodo}
         />
+        <Covid />
       </header>
     </div>
   );
