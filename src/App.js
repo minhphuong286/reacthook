@@ -2,20 +2,21 @@ import logo from './logo.svg';
 import './App.scss';
 import Nav from './views/Nav';
 import { useState, useRef, useEffect } from 'react';
+import Todo from './views/Todo';
 
 function App() {
   let [name, setName] = useState('MP')
   let [address, setAddress] = useState('')
   let [todos, setTodo] = useState([
-    { id: '1', title: 'todo1' },
-    { id: '2', title: 'todo2' }
+    { id: '0', title: 'todo1' },
+    { id: '1', title: 'todo2' }
   ])
   const handleEventClick = () => {
     if (!address) {
       alert('address is empty');
       return;
     }
-    let newTodo = { id: '3', title: address };
+    let newTodo = { id: Math.floor((Math.random() * 100000) + 1), title: address };
     setTodo([...todos, newTodo])
     setAddress('')
   }
@@ -25,7 +26,13 @@ function App() {
   let inputFocus = useRef(null);
   useEffect(() => {
     inputFocus.current.focus();
-  })
+  }, [inputFocus])
+  const deleteTodo = (todoId) => {
+    console.log('Todo_parents: ', todoId)
+    let copyTodos = todos;
+    copyTodos = copyTodos.filter(todo => todo.id !== todoId);
+    setTodo(copyTodos)
+  }
   return (
     <div className="App">
       <Nav />
@@ -37,13 +44,10 @@ function App() {
         </p>
         <input type="text" ref={inputFocus} value={address} onChange={(event) => handleOnchangeInput(event)} />
         <button type="button" onClick={() => handleEventClick()}>Click me</button>
-        {todos.map((todo, index) => {
-          return (
-            <div className='todo-child' key={index}>{todo.id} - {todo.title}</div>
-          )
-        })
-
-        }
+        <Todo
+          todos={todos}
+          deleteTodo={deleteTodo}
+        />
       </header>
     </div>
   );
