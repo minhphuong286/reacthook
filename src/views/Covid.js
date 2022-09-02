@@ -1,16 +1,18 @@
 import './Covid.scss';
-import { useEffect, useState } from 'react';
+// import { useEffect, useState } from 'react';
 import useFetch from '../customize/fetchApi';
+import moment from 'moment';
 
 const Covid = () => {
+    const today = moment().startOf('day').toISOString(true);;
+    const priorDate = moment().startOf('day').subtract(10, 'days').toISOString(true);
 
     const { data: dataCovid }
-        = useFetch('https://api.covid19api.com/country/vietnam?from=2021-10-01T00:00:00Z&to=2021-10-20T00:00:00Z')
-
+        = useFetch(`https://api.covid19api.com/country/vietnam?from=${priorDate}&to=${today}`, true);
     return (
 
         <>
-            {console.log('data check:', dataCovid)}
+            {/* {console.log('data check:', dataCovid)} */}
             <p>Covid 19 tracking in Viet Nam</p>
 
             <table>

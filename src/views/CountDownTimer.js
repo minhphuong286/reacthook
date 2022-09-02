@@ -4,6 +4,11 @@ class CountDownTimer extends React.Component {
     state = {
         count: 10
     }
+    componentWillUnmount() {
+        if (this.Timer) {
+            clearInterval(this.Timer);
+        }
+    }
     componentDidMount() {
         this.timer = setInterval(() => {
             this.setState({
@@ -17,6 +22,7 @@ class CountDownTimer extends React.Component {
             // alert('Stop countdown');
         }
     }
+
     render() {
         return (
             <div>Class: {this.state.count}</div>
@@ -31,11 +37,11 @@ const CountDownTimerHooks = () => {
 
     useEffect(() => {
         if (count === 0) {
-            alert('Stop countdown Hooks')
+            // alert('Stop countdown Hooks')
             return;
         }
         let Timer = setInterval(() => {
-            console.log('Count: ', count)
+            // console.log('Count: ', count)
             setCount(count - 1)
         }, 1000)
         return () => {

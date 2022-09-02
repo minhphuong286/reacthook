@@ -10,8 +10,6 @@ const Todo = (props) => {
         <div className="todo-container">
             <p>List of todos:</p>
             {todos.map((todo, index) => {
-
-                console.log('index: ', index);
                 return (
                     <div className='todo-child' id={todo.id} key={index}>
                         {todo.id} - {todo.title} -
